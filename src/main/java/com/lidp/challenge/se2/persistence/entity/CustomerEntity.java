@@ -1,15 +1,14 @@
 package com.lidp.challenge.se2.persistence.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
+import java.util.List;
+
+// Customer table with an id and name as columns. Relationship with address is One-to-Many.
 @Entity
 @Table(name = "customer")
 public class CustomerEntity {
+  // Primary Key
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column
@@ -18,13 +17,12 @@ public class CustomerEntity {
   @Column
   private String name;
 
-  public int getId() {
-    return id;
-  }
+  @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+  private List<AddressEntity> addresses;
 
-  public void setId(int id) {
-    this.id = id;
-  }
+  public int getId() { return id; }
+
+  public void setId(int id) { this.id = id; }
 
   public String getName() {
     return name;
@@ -33,4 +31,8 @@ public class CustomerEntity {
   public void setName(String name) {
     this.name = name;
   }
+
+  public List<AddressEntity> getAddresses() { return addresses; }
+
+  public void setAddresses(List<AddressEntity> addresses) { this.addresses = addresses; }
 }
