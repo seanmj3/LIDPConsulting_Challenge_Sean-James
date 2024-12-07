@@ -9,6 +9,7 @@ public class AddressEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column
     private int address_id;
 
     @ManyToOne

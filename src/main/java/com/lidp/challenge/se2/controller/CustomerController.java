@@ -1,6 +1,8 @@
 package com.lidp.challenge.se2.controller;
 
+import com.lidp.challenge.se2.persistence.entity.AddressEntity;
 import com.lidp.challenge.se2.persistence.entity.CustomerEntity;
+import com.lidp.challenge.se2.service.AddressService;
 import com.lidp.challenge.se2.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,10 +19,12 @@ import java.util.List;
 @RequestMapping("/customer")
 public class CustomerController {
   private final CustomerService customerService;
+  private final AddressService addressService;
 
   @Autowired
-  public CustomerController(CustomerService customerService) {
+  public CustomerController(CustomerService customerService, AddressService addressService) {
     this.customerService = customerService;
+    this.addressService = addressService;
   }
 
   @PostMapping
@@ -39,7 +43,11 @@ public class CustomerController {
   }
 
   @DeleteMapping("/{id}")
-  public void deleteById(@PathVariable Integer id) {
-    this.customerService.deleteById(id);
-  }
+  public void deleteById(@PathVariable Integer id) { this.customerService.deleteById(id); }
+
+  @GetMapping("/{id}/address")
+  public AddressEntity findAddressById(@PathVariable Integer id) { return this.addressService.findAddressById(id); }
+
+  @GetMapping("/{id}/address")
+  public List<AddressEntity> findAllAddresses() {return this.addressService.findAllAddresses(); }
 }
