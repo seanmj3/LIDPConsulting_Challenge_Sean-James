@@ -49,5 +49,7 @@ public class CustomerController {
   public AddressEntity findAddressById(@PathVariable Integer id) { return this.addressService.findAddressById(id); }
 
   @GetMapping("/{id}/address")
-  public List<AddressEntity> findAllAddresses() {return this.addressService.findAllAddresses(); }
+  public List<AddressEntity> findAllAddresses() { return this.addressService.findAllAddresses(); }
+
+  // TODO: Create CRUD mappings for AddressService
 }

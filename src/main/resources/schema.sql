@@ -10,7 +10,7 @@ CREATE TABLE address (
     state VARCHAR(2),
     zipcode VARCHAR(5),
     country VARCHAR,
-    customerId FOREIGN KEY
+    customerId INT FOREIGN KEY REFERENCES customer(id)
 );
 
 CREATE TABLE sales (
