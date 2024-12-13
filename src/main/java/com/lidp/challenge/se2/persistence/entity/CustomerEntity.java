@@ -17,6 +17,14 @@ public class CustomerEntity {
   @Column
   private String name;
 
+  public CustomerEntity(Integer id, String name, List<AddressEntity> addresses) {
+    this.id = id;
+    this.name = name;
+    this.addresses = addresses;
+  }
+
+  public CustomerEntity() {}
+
   @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<AddressEntity> addresses;
 

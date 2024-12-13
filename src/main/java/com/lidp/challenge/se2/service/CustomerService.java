@@ -1,42 +1,47 @@
 package com.lidp.challenge.se2.service;
 
+import com.lidp.challenge.se2.domain.CustomerDTO;
+import com.lidp.challenge.se2.mapper.CustomerMapper;
 import com.lidp.challenge.se2.persistence.dao.CustomerRepository;
 import com.lidp.challenge.se2.persistence.entity.CustomerEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Service
 public class CustomerService {
-  final CustomerRepository customerRepository;
+
+  private final CustomerRepository customerRepository;
+  private final CustomerMapper customerMapper;
 
   @Autowired
-  public CustomerService(CustomerRepository customerRepository) {
+  public CustomerService(CustomerRepository customerRepository, CustomerMapper customerMapper) {
     this.customerRepository = customerRepository;
+    this.customerMapper = customerMapper;
   }
 
-  public void save(final CustomerEntity customerEntity) {
-    this.customerRepository.save(customerEntity);
+  public CustomerDTO save(CustomerDTO customerDTO) {
+    CustomerEntity entity = customerMapper.toEntity(customerDTO);
+    CustomerEntity savedEntity = customerRepository.save(entity);
+    return customerMapper.toDTO(savedEntity);
   }
 
-  public List<CustomerEntity> findAll() {
-    return (List<CustomerEntity>) this.customerRepository.findAll();
+  public List<CustomerDTO> findAll() {
+    return StreamSupport.stream(customerRepository.findAll().spliterator(), false)
+            .map(customerMapper::toDTO)
+            .collect(Collectors.toList());
   }
 
-  public CustomerEntity findById(final Integer id) {
-    final List<CustomerEntity> customers = this.findAll();
-
-    for (final CustomerEntity customerEntity : customers) {
-      if (customerEntity.getId() == id) {
-        return customerEntity;
-      }
-    }
-
-    throw new RuntimeException(id + " not found");
+  public CustomerDTO findById(Integer id) {
+    CustomerEntity entity = customerRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Customer not found"));
+    return customerMapper.toDTO(entity);
   }
 
-  public void deleteById(final Integer id) {
-    this.customerRepository.deleteById(id);
+  public void deleteById(Integer id) {
+    customerRepository.deleteById(id);
   }
 }

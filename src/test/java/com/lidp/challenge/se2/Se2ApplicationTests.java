@@ -12,24 +12,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class Se2ApplicationTests {
 
-  @BeforeAll
-  static void beforeAll() {
-    System.out.println("Starting tests now.");
+
+  @Test
+  void contextLoads() {
+
   }
 
-//  @ExtendWith(MockitoExtension.class)
-//  class CustomerControllerTest {
-//
-//    @Mock
-//    CustomerService mockCustomerService;
-//  }
-//  @Test
-//  void contextLoads() {
-//
-//  }
-
-  @AfterAll
-  static void afterAll() {
-    System.out.println("Done with tests.");
-  }
 }

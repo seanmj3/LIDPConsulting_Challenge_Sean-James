@@ -1,9 +1,7 @@
 package com.lidp.challenge.se2.persistence.dao;
 
 import com.lidp.challenge.se2.persistence.entity.CustomerEntity;
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-@Repository
-public interface CustomerRepository extends CrudRepository<CustomerEntity, Integer> {
+public interface CustomerRepository extends JpaRepository<CustomerEntity, Integer> {
 }

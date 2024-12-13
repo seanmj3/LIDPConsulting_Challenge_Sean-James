@@ -1,30 +1,22 @@
-package com.lidp.challenge.se2.persistence.entity;
+package com.lidp.challenge.se2.domain;
 
+import com.lidp.challenge.se2.persistence.entity.CustomerEntity;
 import jakarta.persistence.*;
 
-// Address table with street, zipcode, state, country and city columns. Relationship with customer entity is Many-to-One.
-@Entity
-@Table(name = "address")
-public class AddressEntity {
+public class AddressDTO {
+    private Integer address_id;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
-    private int address_id;
-
-    @ManyToOne
-    @JoinColumn(name = "customer_id", nullable = false)
     private CustomerEntity customer;
 
-    @Column
+
     private String street;
-    @Column
+
     private String city;
-    @Column
+
     private String state;
-    @Column
+
     private String zipcode;
-    @Column
+
     private String country;
 
     public void setId(Integer id) { this.address_id = id; }

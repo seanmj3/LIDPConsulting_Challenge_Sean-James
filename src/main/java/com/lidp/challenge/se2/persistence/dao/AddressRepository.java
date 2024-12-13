@@ -1,9 +1,7 @@
 package com.lidp.challenge.se2.persistence.dao;
 
 import com.lidp.challenge.se2.persistence.entity.AddressEntity;
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-@Repository
-public interface AddressRepository extends CrudRepository<AddressEntity, Integer> {
+public interface AddressRepository extends JpaRepository<AddressEntity, Integer> {
 }
